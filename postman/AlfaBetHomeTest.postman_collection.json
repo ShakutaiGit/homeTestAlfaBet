@@ -1,0 +1,160 @@
+{
+	"info": {
+		"_postman_id": "fc6033ac-e7f2-4f2b-af25-9551cb336c59",
+		"name": "AlfaBetHomeTest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31232620"
+	},
+	"item": [
+		{
+			"name": "Schedule a new event",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Nina Birthday\",\r\n  \"description\": \"House party\",\r\n  \"location\": \"Ramat Gan\",\r\n  \"startTime\": \"2023-11-17T17:55:10Z\",\r\n  \"Participants\": 40,\r\n  \"endTime\": \"2023-12-01T17:00:00Z\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/events",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"events"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve a List of All Scheduled Events",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/events?location=Ramat Gan&sortBy=popularity",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"events"
+					],
+					"query": [
+						{
+							"key": "location",
+							"value": "Ramat Gan"
+						},
+						{
+							"key": "sortBy",
+							"value": "popularity"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve Details of a Specific Event",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/events/6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"events",
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Details of a Specific Event",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"ID\": 6,\r\n    \"Name\": \"Updated Nina BirthdayPart\",\r\n    \"Description\": \"House party\",\r\n    \"Location\": \"Ramat Gan\",\r\n    \"StartTime\": \"2023-11-17T17:55:10Z\",\r\n    \"EndTime\": \"2023-12-01T17:00:00Z\",\r\n    \"Participants\": 40,\r\n    \"CreatedAt\": \"2023-11-17T17:34:05.6404985+02:00\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/events/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"events",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a Specific Event",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/events/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"events",
+						"4"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
