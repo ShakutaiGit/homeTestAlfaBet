@@ -11,6 +11,7 @@ type EventRepository interface {
 	GetByID(id uint) (domain.Event, error)
 	Update(event *domain.Event) error
 	Delete(id uint) error
+	GetEvents(location, sortBy string) ([]domain.Event, error)
 }
 
 type eventRepository struct {
@@ -43,4 +44,27 @@ func (repo *eventRepository) Update(event *domain.Event) error {
 
 func (repo *eventRepository) Delete(id uint) error {
 	return repo.db.Delete(&domain.Event{}, id).Error
+}
+
+func (repo *eventRepository) GetEvents(location, sortBy string) ([]domain.Event, error) {
+	query := repo.db.Model(&domain.Event{})
+
+	// Apply location filter if provided
+	if location != "" {
+		query = query.Where("location = ?", location)
+	}
+
+	// Apply sorting based on the sortBy parameter
+	switch sortBy {
+	case "date":
+		query = query.Order("start_time asc")
+	case "popularity":
+		query = query.Order("participants desc")
+	case "creation":
+		query = query.Order("created_at desc")
+	}
+
+	var events []domain.Event
+	err := query.Find(&events).Error
+	return events, err
 }

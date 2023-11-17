@@ -34,7 +34,10 @@ func (h *EventHandler) ScheduleEvent(ctx Context) {
 }
 
 func (h *EventHandler) GetAllEvents(ctx Context) {
-	events, err := h.service.GetEvents()
+	location := ctx.Query("location")
+	sortBy := ctx.Query("sortBy")
+
+	events, err := h.service.GetEvents(location, sortBy)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return

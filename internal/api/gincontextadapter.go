@@ -27,4 +27,8 @@ func (g *GinContextAdapter) Status(code int) {
 	g.C.Status(code)
 }
 
+func (g *GinContextAdapter) Query(key string) string {
+	return g.C.Query(key)
+}
+
 // Implement other necessary methods from gin.Context...

@@ -8,7 +8,7 @@ import (
 // EventService defines the interface for event service
 type EventService interface {
 	ScheduleEvent(event *domain.Event) error
-	GetEvents() ([]domain.Event, error)
+	GetEvents(location, sortBy string) ([]domain.Event, error)
 	GetEventByID(id uint) (domain.Event, error)
 	UpdateEvent(event *domain.Event) error
 	DeleteEvent(id uint) error
@@ -27,8 +27,8 @@ func (s *eventService) ScheduleEvent(event *domain.Event) error {
 	return s.repo.Create(event)
 }
 
-func (s *eventService) GetEvents() ([]domain.Event, error) {
-	return s.repo.GetAll()
+func (s *eventService) GetEvents(location, sortBy string) ([]domain.Event, error) {
+	return s.repo.GetEvents(location, sortBy)
 }
 
 func (s *eventService) GetEventByID(id uint) (domain.Event, error) {
