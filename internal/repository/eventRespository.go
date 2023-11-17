@@ -3,6 +3,7 @@ package repository
 import (
 	"gorm.io/gorm"
 	"homeTestAlfaBet/internal/domain"
+	"time"
 )
 
 type EventRepository interface {
@@ -12,6 +13,7 @@ type EventRepository interface {
 	Update(event *domain.Event) error
 	Delete(id uint) error
 	GetEvents(location, sortBy string) ([]domain.Event, error)
+	GetEventsHappeningBetween(startTime, endTime time.Time) ([]domain.Event, error)
 }
 
 type eventRepository struct {
@@ -66,5 +68,11 @@ func (repo *eventRepository) GetEvents(location, sortBy string) ([]domain.Event,
 
 	var events []domain.Event
 	err := query.Find(&events).Error
+	return events, err
+}
+
+func (repo *eventRepository) GetEventsHappeningBetween(startTime, endTime time.Time) ([]domain.Event, error) {
+	var events []domain.Event
+	err := repo.db.Where("start_time >= ? AND start_time <= ?", startTime, endTime).Find(&events).Error
 	return events, err
 }
