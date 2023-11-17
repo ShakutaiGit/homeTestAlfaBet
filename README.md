@@ -1,21 +1,51 @@
-# Project Title
-
-A brief description of what this project does and who it's for.
+# AlfaBet Home Test
+Ron Shakutai
 
 ## API Overview
 
-This project implements a RESTful API for managing events, with the following endpoints:
+This project provides a RESTFul API to manage events, detailed as follows:
 
-- `POST /events`: Schedule a new event.
-- `GET /events`: Retrieve a list of all scheduled events.
-- `GET /events/:id`: Retrieve details of a specific event.
-- `PUT /events/:id`: Update details of a specific event.
-- `DELETE /events/:id`: Delete a specific event.
+### Endpoints
+
+#### Schedule a New Event
+- **Endpoint**: `POST /events`
+- **Description**: Schedules a new event.
+- **Body**: JSON payload containing event details.
+
+#### Retrieve a List of All Scheduled Events
+- **Endpoint**: `GET /events`
+- **Description**: Retrieves a list of events, with optional filtering and sorting.
+- **Query Parameters**:
+   - `location`: (Optional) Filter events by location. For example, `location=New York` retrieves all events in New York.
+   - `sortBy`: (Optional) Sorts events based on certain criteria. Available options:
+      - `date`: Sorts events by start time.
+      - `popularity`: Sorts events by the number of participants.
+      - `creation`: Sorts events by the creation time of the event.
+   - **Example**: `http://localhost:8080/events?location=New York&sortBy=popularity` retrieves events in New York, sorted by their popularity.
+
+#### Retrieve Details of a Specific Event
+- **Endpoint**: `GET /events/:id`
+- **Description**: Retrieves detailed information about a specific event.
+- **Parameters**:
+   - `id`: The unique identifier of the event.
+
+#### Update Details of a Specific Event
+- **Endpoint**: `PUT /events/:id`
+- **Description**: Updates the details of a specific event.
+- **Parameters**:
+   - `id`: The unique identifier of the event.
+- **Body**: JSON payload containing updated event details.
+
+#### Delete a Specific Event
+- **Endpoint**: `DELETE /events/:id`
+- **Description**: Deletes a specific event.
+- **Parameters**:
+   - `id`: The unique identifier of the event.
 
 ### Using the API with Postman
-
-A Postman collection is available for easy interaction with the API. To use it:
-1. Import the collection into Postman.
+A folder named 'postman' has been included in the project, containing the Postman collection for the API.
+A Postman collection is available for easy interaction with the API. Follow these steps to use it:
+1. Import the collection into Postman (from the folder).
 2. Ensure the API server is running.
 3. Send requests to the API via Postman.
 
@@ -29,6 +59,7 @@ The project is structured using the Ports & Adapters (also known as Hexagonal Ar
 ## Running Unit Tests
 
 To run the unit tests, navigate to the project's root directory and execute the following command:
+i have made some unit & integration tests.
 
 ```bash
 go test ./... -v
@@ -62,14 +93,3 @@ Follow these steps to set up the project and install its dependencies:
    ```
    This starts the server on the default port (e.g., `:8080`). Ensure this port is available or adjust the port in the configuration.
 
-## Contributing
-
-Instructions for contributing to the project (if applicable).
-
----
-
-### Customizing the README
-
-- Replace placeholders like `[repository-url]`, `[project-name]`, and other project-specific details with actual information.
-- If there are additional setup steps (like setting up a database or environment variables), include those in the Installation & Setup section.
-- If your API requires authentication or specific headers, include that information in the API Overview section.
