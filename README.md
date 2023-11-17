@@ -93,3 +93,56 @@ Follow these steps to set up the project and install its dependencies:
    ```
    This starts the server on the default port (e.g., `:8080`). Ensure this port is available or adjust the port in the configuration.
 
+
+## Database Setup and CGO Configuration
+
+### Enabling CGO for Database Support ( can be passed if you use windows)
+
+This project uses a database that requires cgo for successful integration. 
+CGO enables the Go compiler to call C code directly, which is essential for some database drivers, particularly those that rely on C libraries.
+
+To ensure smooth operation with the database, the following steps were taken:
+
+1. **CGO Enabled Flag**:
+    - The project is compiled with CGO enabled. This is achieved by setting the environment variable `CGO_ENABLED=1`.
+    - Enabling CGO allows the use of the database driver that depends on C libraries.
+
+2. **Installing CGO Support**:
+    - A specific installer was used to support CGO on the development environment. For example, if you're on Windows, you might have installed MinGW or Cygwin to provide a GCC compiler environment, which is a requirement for CGO to compile C code.
+    - Ensure that the appropriate tools are installed and correctly configured in your environment to compile projects with CGO dependencies.
+
+
+## Windows Specific Setup for CGO
+
+### Enabling CGO on Windows with TDM-GCC
+
+CGO allows Go programs to call C code, which is essential for some database drivers in Go projects. To enable CGO on Windows:
+
+#### Install TDM-GCC (GCC Compiler)
+
+1. **Download and Install TDM-GCC**:
+    - TDM-GCC is a compiler suite for Windows. It's a more user-friendly way to install GCC on Windows.
+    - Download TDM-GCC from [TDM-GCC's Official Site](https://jmeubank.github.io/tdm-gcc/).
+    - Run the installer and follow the instructions. It's recommended to use the default settings unless you have specific requirements.
+
+#### Set Environment Variables
+
+2. **Configure CGO_ENABLED**:
+    - CGO must be explicitly enabled in Windows.
+    - Set the environment variable `CGO_ENABLED` to `1`.
+    - To do this, follow these steps:
+        - Right-click on 'This PC' or 'My Computer' and select 'Properties'.
+        - Click on 'Advanced system settings'.
+        - In the System Properties window, go to the 'Advanced' tab and click on 'Environment Variables'.
+        - Under 'System variables', click 'New' to add a new variable.
+            - Variable name: `CGO_ENABLED`
+            - Variable value: `1`
+        - Click 'OK' to save the new environment variable.
+
+3. **Add TDM-GCC to the System Path (it might work without it)**: 
+    - Ensure that the TDM-GCC bin directory is added to your system's PATH environment variable.
+    - The typical path to add is `C:\TDM-GCC-64\bin` (adjust the path if you installed TDM-GCC in a different location).
+    - To add TDM-GCC to the PATH:
+        - In the Environment Variables window, find and select the `Path` variable in the 'System variables' section, then click 'Edit'.
+        - Click 'New' and add the TDM-GCC bin directory path.
+        - Click 'OK' to close all dialogs.
